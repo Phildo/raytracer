@@ -1,4 +1,5 @@
 #include "img.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -40,6 +41,7 @@ void print_ppm(ppm img)
     for(int x = 0; x < img.w; x++)
     {
       printf("%d %d %d ",img.px[i+0],img.px[i+1],img.px[i+2]);
+      printf("\n");
       i += 3;
     }
     printf("\n");
@@ -47,16 +49,4 @@ void print_ppm(ppm img)
 
 }
 
-void gen_img(canvas img)
-{
-  int i = 0;
-  for(int y = 0; y < img.h; y++)
-  {
-    for(int x = 0; x < img.w; x++)
-    {
-      img.px[i] = vec3((float)rand()/RAND_MAX,(float)rand()/RAND_MAX,(float)rand()/RAND_MAX);
-      i++;
-    }
-  }
-}
 

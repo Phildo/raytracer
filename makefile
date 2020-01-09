@@ -1,12 +1,13 @@
-CURDIR = $(shell pwd)
-SRCDIR = $(CURDIR)
-HRC    =$(wildcard $(SRCDIR)/*.h);
-SRC    =$(wildcard $(SRCDIR)/*.cpp);
-OUT    =a.out
-IMG    =test.ppm
+CURDIR=$(shell pwd)
+SRCDIR=$(CURDIR)
+HRC=$(wildcard $(SRCDIR)/*.h)
+SRC=$(wildcard $(SRCDIR)/*.cpp)
+OUT=a.out
+IMG=test.ppm
+CC=g++
 
-a.out: $(SRC) $(HRC)
-	gcc $(SRC) -o a.out
+$(OUT): $(HRC) $(SRC)
+	$(CC) $(SRC) -o a.out
 
 run: $(OUT)
 	./$(OUT)
@@ -17,6 +18,6 @@ $(IMG): $(OUT)
 img: $(IMG)
 	
 
-tags: $(SRC) $(HRC)
+tags: $(HRC) $(SRC)
 	ctags $(SRC)
 

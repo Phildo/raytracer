@@ -2,11 +2,13 @@
 #include <stdio.h>
 
 #include "img.h"
+#include "world.h"
 
 int main(int argv, char **argc)
 {
   int w = 200;
   int h = 100;
+
   canvas cimg;
   cimg.w = w;
   cimg.h = h;
