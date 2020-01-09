@@ -22,6 +22,7 @@ bool sphere::hit(const ray3& r, precision t_min, precision t_max, hit_record& re
       rec.t = t;
       rec.p = r.point_at_parameter(t);
       rec.normal = (rec.p-center)/radius; //normalized!
+      rec.mat_ptr = mat_ptr;
       return true;
     }
     //far root
@@ -32,6 +33,7 @@ bool sphere::hit(const ray3& r, precision t_min, precision t_max, hit_record& re
       rec.t = t;
       rec.p = r.point_at_parameter(t);
       rec.normal = (rec.p-center)/radius; //normalized!
+      rec.mat_ptr = mat_ptr;
       return true;
     }
   }

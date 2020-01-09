@@ -23,9 +23,9 @@ void canvas_to_ppm(canvas cimg, ppm pimg)
   {
     for(int x = 0; x < cimg.w; x++)
     {
-      pimg.px[pi+0] = cimg.px[ci].r()*255.999;
-      pimg.px[pi+1] = cimg.px[ci].g()*255.999;
-      pimg.px[pi+2] = cimg.px[ci].b()*255.999;
+      pimg.px[pi+0] = sqrt(cimg.px[ci].r())*255.999;
+      pimg.px[pi+1] = sqrt(cimg.px[ci].g())*255.999;
+      pimg.px[pi+2] = sqrt(cimg.px[ci].b())*255.999;
       pi += 3;
       ci++;
     }

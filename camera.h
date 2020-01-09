@@ -14,7 +14,7 @@ public:
     vert = vec3(0,2,0);
     origin = vec3(0,0,0);
   }
-  ray3 get_ray(precision u, precision v)
+  ray3 get_ray3(precision u, precision v)
   {
     return ray3(origin, ll + u*horiz + v*vert);
   }
