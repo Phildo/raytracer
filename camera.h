@@ -8,6 +8,7 @@
 struct camera
 {
 public:
+  camera() {};
   camera(vec3 lookfrom, vec3 lookat, vec3 up, precision vfov, precision aspect, precision aperture, precision focus_dist)
   {
     lens_radius = aperture/2;

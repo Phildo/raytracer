@@ -8,6 +8,11 @@ inline double random_double()
   return rand() / (RAND_MAX + 1.0);
 }
 
+inline double random_double_sqr()
+{
+  return random_double()*random_double();
+}
+
 vec3 random_in_unit_sphere()
 {
   vec3 p;

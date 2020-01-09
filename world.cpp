@@ -28,20 +28,70 @@ vec3 color(ray3 r, hittable *world, int depth)
 
 void gen_img(canvas img)
 {
-  hittable *list[5];
-  list[0] = new sphere(vec3( 0,     0,-1), 0.5, new lambertian(vec3(0.8,0.3,0.3)));
-  list[1] = new sphere(vec3( 0,-100.5,-1), 100, new lambertian(vec3(0.8,0.8,0.0)));
-  list[2] = new sphere(vec3( 1,     0,-1), 0.5, new metal(     vec3(0.8,0.6,0.2), 0.3));
-  list[3] = new sphere(vec3(-1,     0,-1), 0.5, new dielectric(1.5));
-  list[4] = new sphere(vec3(-1,     0,-1), -0.45, new dielectric(1.5));
-  hittable *world = new hittable_list(list,5);
+  hittable **list;
+  hittable *world;
+  camera cam;
 
-  vec3 lookfrom(3,3,2);
-  vec3 lookat(0,0,-1);
-  precision dist_to_focus = (lookfrom-lookat).length();
-  precision aperture = 0;
+  /*
+  //Simple world (3 balls, one diffuse, one rough metal, one 'bubble')
+  {
+    list = new hittable*[5];
+    list[0] = new sphere(vec3( 0,     0,-1), 0.5, new lambertian(vec3(0.8,0.3,0.3)));
+    list[1] = new sphere(vec3( 0,-100.5,-1), 100, new lambertian(vec3(0.8,0.8,0.0)));
+    list[2] = new sphere(vec3( 1,     0,-1), 0.5, new metal(     vec3(0.8,0.6,0.2), 0.3));
+    list[3] = new sphere(vec3(-1,     0,-1), 0.5, new dielectric(1.5));
+    list[4] = new sphere(vec3(-1,     0,-1), -0.45, new dielectric(1.5));
+    world = new hittable_list(list,5);
 
-  camera cam(lookfrom,lookat,vec3(0,1,0),20,(precision)img.w/img.h, aperture, dist_to_focus);
+    vec3 lookfrom(3,3,2);
+    vec3 lookat(0,0,-1);
+    precision dist_to_focus = (lookfrom-lookat).length();
+    precision aperture = 0;
+
+    cam = camera(lookfrom,lookat,vec3(0,1,0),20,(precision)img.w/img.h, aperture, dist_to_focus);
+  }
+  //*/
+
+  //*
+  //Final image in "Ray Tracing in One Weekend"
+  {
+    int n = 40;
+    int iter = sqrt(n-1-3); //-1 for earth, -3 for bigballs
+
+    list = new hittable*[n+1];
+    list[0] = new sphere(vec3(0,-1000,0), 1000, new lambertian(vec3(0.5,0.5,0.5)));
+    int i = 1;
+    for(int a = -iter/2; a < iter/2; a++)
+    {
+      for(int b = -iter/2; b < iter/2; b++)
+      {
+        precision choose_mat = random_double();
+        vec3 center(a+0.9*random_double(),0.2,b+0.9*random_double());
+        if((center-vec3(4,0.2,0)).length() > 0.9)
+        {
+          if(choose_mat < 0.8)
+            list[i++] = new sphere(center, 0.2, new lambertian(vec3(random_double_sqr(),random_double_sqr(),random_double_sqr())));
+          else if(choose_mat < 0.95)
+            list[i++] = new sphere(center, 0.2, new metal(vec3(0.5*(1+random_double()),0.5*(1+random_double()),0.5*(1+random_double())),0.5*random_double()));
+          else
+            list[i++] = new sphere(center, 0.2, new dielectric(1.5));
+        }
+      }
+    }
+
+    list[i++] = new sphere(vec3( 0,1,0), 1, new dielectric(1.5));
+    list[i++] = new sphere(vec3(-4,1,0), 1, new lambertian(vec3(0.4,0.2,0.1)));
+    list[i++] = new sphere(vec3( 4,1,0), 1, new metal(vec3(0.7,0.6,0.1),0.0));
+    world = new hittable_list(list,i);
+
+    vec3 lookfrom(8,4,4);
+    vec3 lookat(0,0,-1);
+    precision dist_to_focus = (lookfrom-lookat).length();
+    precision aperture = 0;
+
+    cam = camera(lookfrom,lookat,vec3(0,1,0),40,(precision)img.w/img.h, aperture, dist_to_focus);
+  }
+  //*/
 
   int samples = 100;
   precision u_wiggle = (precision)1/img.w;
