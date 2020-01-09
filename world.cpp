@@ -28,15 +28,21 @@ vec3 color(ray3 r, hittable *world, int depth)
 
 void gen_img(canvas img)
 {
-  hittable *list[4];
+  hittable *list[5];
   list[0] = new sphere(vec3( 0,     0,-1), 0.5, new lambertian(vec3(0.8,0.3,0.3)));
   list[1] = new sphere(vec3( 0,-100.5,-1), 100, new lambertian(vec3(0.8,0.8,0.0)));
   list[2] = new sphere(vec3( 1,     0,-1), 0.5, new metal(     vec3(0.8,0.6,0.2), 0.3));
-  //list[3] = new sphere(vec3(-1,     0,-1), 0.5, new metal(     vec3(0.8,0.8,0.8), 1.0));
-  list[3] = new sphere(vec3(-1,     0,-1), -0.45, new dielectric(1.5));
-  hittable *world = new hittable_list(list,4);
+  list[3] = new sphere(vec3(-1,     0,-1), 0.5, new dielectric(1.5));
+  list[4] = new sphere(vec3(-1,     0,-1), -0.45, new dielectric(1.5));
+  hittable *world = new hittable_list(list,5);
 
-  camera cam;
+  vec3 lookfrom(3,3,2);
+  vec3 lookat(0,0,-1);
+  precision dist_to_focus = (lookfrom-lookat).length();
+  precision aperture = 0;
+
+  camera cam(lookfrom,lookat,vec3(0,1,0),20,(precision)img.w/img.h, aperture, dist_to_focus);
+
   int samples = 100;
   precision u_wiggle = (precision)1/img.w;
   precision v_wiggle = (precision)1/img.h;
