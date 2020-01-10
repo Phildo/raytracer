@@ -9,15 +9,15 @@
 #include "camera.h"
 #include "util.h"
 
-vec3 color(ray3 r, hittable *world, int depth)
+vec3 color(ray3 r, hittable *world, int depth, int maxdepth)
 {
   hit_record rec;
   if(world->hit(r, 0.001, MAXFLOAT, rec))
   {
     ray3 scattered;
     vec3 attenuation;
-    if(depth < 50 && rec.mat_ptr->scatter(r, rec, attenuation, scattered))
-      return attenuation*color(scattered,world,depth+1);
+    if(depth < maxdepth && rec.mat_ptr->scatter(r, rec, attenuation, scattered))
+      return attenuation*color(scattered,world,depth+1,maxdepth);
     return vec3(0,0,0);
   }
   //background
@@ -26,7 +26,7 @@ vec3 color(ray3 r, hittable *world, int depth)
   return (1.0-t)*vec3(1,1,1)+t*vec3(0.5,0.7,1.0);
 }
 
-void gen_img(canvas img)
+void gen_img(canvas img, int aa, int bounces)
 {
   hittable **list;
   hittable *world;
@@ -55,8 +55,8 @@ void gen_img(canvas img)
   //*
   //Final image in "Ray Tracing in One Weekend"
   {
-    int n = 40;
-    int iter = sqrt(n-1-3); //-1 for earth, -3 for bigballs
+    int n = 500;
+    int iter = sqrt(n-1-3)-1; //-1 for earth, -3 for bigballs, final -1 for guaranteed space
 
     list = new hittable*[n+1];
     list[0] = new sphere(vec3(0,-1000,0), 1000, new lambertian(vec3(0.5,0.5,0.5)));
@@ -87,13 +87,12 @@ void gen_img(canvas img)
     vec3 lookfrom(8,4,4);
     vec3 lookat(0,0,-1);
     precision dist_to_focus = (lookfrom-lookat).length();
-    precision aperture = 0;
+    precision aperture = 1;
 
     cam = camera(lookfrom,lookat,vec3(0,1,0),40,(precision)img.w/img.h, aperture, dist_to_focus);
   }
   //*/
 
-  int samples = 100;
   precision u_wiggle = (precision)1/img.w;
   precision v_wiggle = (precision)1/img.h;
 
@@ -105,12 +104,12 @@ void gen_img(canvas img)
       precision u = (precision)x/img.w; //0 = left
       precision v = 1.-(precision)y/img.h; //0 = bottom
       img.px[i] = vec3(0,0,0);
-      for(int s = 0; s < samples; s++)
+      for(int s = 0; s < aa; s++)
       {
         ray3 r = cam.get_ray3(u+random_double()*u_wiggle,v+random_double()*v_wiggle);
-        img.px[i] += color(r, world, 0);
+        img.px[i] += color(r, world, 0, bounces);
       }
-      img.px[i] /= samples;
+      img.px[i] /= aa;
       i++;
     }
   }

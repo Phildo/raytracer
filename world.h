@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include "img.h"
 
-void gen_img(canvas img);
+void gen_img(canvas img,int aa,int bounces);
 
 #endif //WORLD_H
 

@@ -4,13 +4,13 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-alloc_px_canvas	/Users/phildo/Desktop/raytracer/img.cpp	/^void alloc_px_canvas(canvas *img) { img->px = (vec3 *)malloc(sizeof(vec3)*img->w*img->h); }$/;"	f
-alloc_px_ppm	/Users/phildo/Desktop/raytracer/img.cpp	/^void alloc_px_ppm(ppm *img) { img->px = (unsigned char *)malloc(sizeof(unsigned char)*3*img->w*img->h); }$/;"	f
-canvas_to_ppm	/Users/phildo/Desktop/raytracer/img.cpp	/^void canvas_to_ppm(canvas cimg, ppm pimg)$/;"	f
-color	/Users/phildo/Desktop/raytracer/world.cpp	/^vec3 color(ray3 r, hittable *world, int depth)$/;"	f
-gen_img	/Users/phildo/Desktop/raytracer/world.cpp	/^void gen_img(canvas img)$/;"	f
-hit	/Users/phildo/Desktop/raytracer/hittable_list.cpp	/^bool hittable_list::hit(const ray3& r, precision t_min, precision t_max, hit_record& rec) const$/;"	f	class:hittable_list
-hit	/Users/phildo/Desktop/raytracer/sphere.cpp	/^bool sphere::hit(const ray3& r, precision t_min, precision t_max, hit_record& rec) const$/;"	f	class:sphere
-main	/Users/phildo/Desktop/raytracer/main.cpp	/^int main(int argv, char **argc)$/;"	f
-ppm_for_canvas	/Users/phildo/Desktop/raytracer/img.cpp	/^ppm ppm_for_canvas(canvas cimg)$/;"	f
-print_ppm	/Users/phildo/Desktop/raytracer/img.cpp	/^void print_ppm(ppm img)$/;"	f
+alloc_px_canvas	/Users/phildo/Desktop/projects/raytracer/img.cpp	/^void alloc_px_canvas(canvas *img) { img->px = (vec3 *)malloc(sizeof(vec3)*img->w*img->h); }$/;"	f
+alloc_px_ppm	/Users/phildo/Desktop/projects/raytracer/img.cpp	/^void alloc_px_ppm(ppm *img) { img->px = (unsigned char *)malloc(sizeof(unsigned char)*3*img->w*img->h); }$/;"	f
+canvas_to_ppm	/Users/phildo/Desktop/projects/raytracer/img.cpp	/^void canvas_to_ppm(canvas cimg, ppm pimg)$/;"	f
+color	/Users/phildo/Desktop/projects/raytracer/world.cpp	/^vec3 color(ray3 r, hittable *world, int depth, int maxdepth)$/;"	f
+gen_img	/Users/phildo/Desktop/projects/raytracer/world.cpp	/^void gen_img(canvas img, int aa, int bounces)$/;"	f
+hit	/Users/phildo/Desktop/projects/raytracer/hittable_list.cpp	/^bool hittable_list::hit(const ray3& r, precision t_min, precision t_max, hit_record& rec) const$/;"	f	class:hittable_list
+hit	/Users/phildo/Desktop/projects/raytracer/sphere.cpp	/^bool sphere::hit(const ray3& r, precision t_min, precision t_max, hit_record& rec) const$/;"	f	class:sphere
+main	/Users/phildo/Desktop/projects/raytracer/main.cpp	/^int main(int argv, char **argc)$/;"	f
+ppm_for_canvas	/Users/phildo/Desktop/projects/raytracer/img.cpp	/^ppm ppm_for_canvas(canvas cimg)$/;"	f
+print_ppm	/Users/phildo/Desktop/projects/raytracer/img.cpp	/^void print_ppm(ppm img)$/;"	f
