@@ -4,12 +4,12 @@ HRC=$(wildcard $(SRCDIR)/*.h)
 SRC=$(wildcard $(SRCDIR)/*.cpp)
 OUT=a.exe
 IMG=test.ppm
-LIB=#-lstdc++-6.dll
-ARG=-D_GLIBCXX_USE_CXX11_ABI=0
-CC=g++
+LIB=
+ARG=
+CC=cl
 
 $(OUT): $(HRC) $(SRC)
-	$(CC) $(ARG) $(SRC) $(LIB) -o $(OUT) 
+	$(CC) $(ARG) $(SRC) $(LIB)
 
 run: $(OUT)
 	./$(OUT)
@@ -22,4 +22,7 @@ img: $(IMG)
 
 tags: $(HRC) $(SRC)
 	ctags $(SRC)
+
+clean:
+	rm *.obj *.exe
 

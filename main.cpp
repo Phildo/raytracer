@@ -13,7 +13,7 @@ int main(int argv, char **argc)
   cimg.w = w;
   cimg.h = h;
   alloc_px_canvas(&cimg);
-  gen_img(cimg,100,50);
+  gen_img(cimg,200,50);
   ppm pimg = ppm_for_canvas(cimg);
   canvas_to_ppm(cimg,pimg);
   print_ppm(pimg);

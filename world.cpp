@@ -12,7 +12,11 @@
 vec3 color(ray3 r, hittable *world, int depth, int maxdepth)
 {
   hit_record rec;
+  #ifdef _WIN32
+  if(world->hit(r, 0.001, 10000.0, rec))
+  #else
   if(world->hit(r, 0.001, MAXFLOAT, rec))
+  #endif
   {
     ray3 scattered;
     vec3 attenuation;
@@ -87,7 +91,7 @@ void gen_img(canvas img, int aa, int bounces)
     vec3 lookfrom(8,4,4);
     vec3 lookat(0,0,-1);
     precision dist_to_focus = (lookfrom-lookat).length();
-    precision aperture = 1;
+    precision aperture = 0.1;
 
     cam = camera(lookfrom,lookat,vec3(0,1,0),40,(precision)img.w/img.h, aperture, dist_to_focus);
   }
