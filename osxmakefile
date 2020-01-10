@@ -7,7 +7,7 @@ IMG=test.ppm
 CC=g++
 
 $(OUT): $(HRC) $(SRC)
-	$(CC) $(SRC) -o a.out
+	$(CC) $(SRC) -o $(OUT)
 
 run: $(OUT)
 	./$(OUT)

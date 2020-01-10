@@ -1,0 +1,25 @@
+CURDIR=.
+SRCDIR=$(CURDIR)
+HRC=$(wildcard $(SRCDIR)/*.h)
+SRC=$(wildcard $(SRCDIR)/*.cpp)
+OUT=a.exe
+IMG=test.ppm
+LIB=#-lstdc++-6.dll
+ARG=-D_GLIBCXX_USE_CXX11_ABI=0
+CC=g++
+
+$(OUT): $(HRC) $(SRC)
+	$(CC) $(ARG) $(SRC) $(LIB) -o $(OUT) 
+
+run: $(OUT)
+	./$(OUT)
+
+$(IMG): $(OUT)
+	./$(OUT) > $(IMG)
+
+img: $(IMG)
+	
+
+tags: $(HRC) $(SRC)
+	ctags $(SRC)
+

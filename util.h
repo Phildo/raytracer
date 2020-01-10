@@ -1,6 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include <cstdlib>
 #include "vec3.h"
 
 inline double random_double()
