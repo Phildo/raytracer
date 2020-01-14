@@ -1,28 +1,52 @@
-CURDIR=.
-SRCDIR=$(CURDIR)
-HRC=$(wildcard $(SRCDIR)/*.h)
-SRC=$(wildcard $(SRCDIR)/*.cpp)
-OUT=a.exe
-IMG=test.ppm
-LIB=
-ARG=
-CC=cl
-
-$(OUT): $(HRC) $(SRC)
-	$(CC) $(ARG) $(SRC) $(LIB)
-
-run: $(OUT)
-	./$(OUT)
-
-$(IMG): $(OUT)
-	./$(OUT) > $(IMG)
-
-img: $(IMG)
+all: a.exe
 	
 
-tags: $(HRC) $(SRC)
-	ctags $(SRC)
+a.exe: *.cpp *.h
+	cl /Fe"a.exe" *.cpp
+
+run: a.exe
+	a.exe
+
+img: a.exe
+	a.exe > test.ppm
 
 clean:
 	rm *.obj *.exe
 
+#CURDIR=.
+#SRCDIR=$(CURDIR)
+#OBJDIR=$(CURDIR)
+#OUTDIR=$(CURDIR)
+#HRC=$(wildcard $(SRCDIR)/*.h)
+#SRC=$(wildcard $(SRCDIR)/*.cpp)
+#OBJ=$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.obj)
+#OUT=$(OUTDIR)/a.exe
+#IMG=test.ppm
+#CC=cl
+#CFLAGS=/c
+#LN=link#$(VCINSTALLDIR)/bin/link
+#
+#$(OUT): $(OBJ)
+#	$(LN) /out:$@ $(OBJ)
+#
+#$(OBJDIR)/main.obj: main.cpp $(SRC) $(HRC)
+#	$(CC) $(CFLAGS) /Fo$@ $<
+#
+#$(OBJDIR)/%.obj: $(SRCDIR)/%.cpp $(SRCDIR)/%.h  $(SRC) $(HRC)
+#	$(CC) $(CFLAGS) /Fo$@ $<
+#
+#run: $(OUT)
+#	./$(OUT)
+#
+#$(IMG): $(OUT)
+#	./$(OUT) > $(IMG)
+#
+#img: $(IMG)
+#	
+#
+#tags: $(HRC) $(SRC)
+#	ctags $(SRC)
+#
+#clean:
+#	rm $(OBJDIR)/*.obj $(OUTDIR)/*.exe
+#
