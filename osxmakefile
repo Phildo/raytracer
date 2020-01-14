@@ -18,6 +18,12 @@ $(IMG): $(OUT)
 img: $(IMG)
 	
 
+test: $(OUT)
+	./$(OUT) quick dirty > $(IMG)
+
+decent: $(OUT)
+	./$(OUT) quick > $(IMG)
+
 tags: $(HRC) $(SRC)
 	ctags $(SRC)
 

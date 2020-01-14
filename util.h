@@ -57,5 +57,7 @@ precision schlick(precision cosine, precision ref_idx)
   return r0 + (1-r0)*pow((1-cosine),5);
 }
 
+
+
 #endif //UTIL_H
 

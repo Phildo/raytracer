@@ -4,6 +4,7 @@
 #include "ray3.h"
 #include "hittable.h"
 #include "sphere.h"
+#include "moving_sphere.h"
 #include "hittable_list.h"
 #include "material.h"
 #include "camera.h"
@@ -36,27 +37,29 @@ void gen_img(canvas img, int aa, int bounces)
   hittable *world;
   camera cam;
 
-  /*
+  //*
   //Simple world (3 balls, one diffuse, one rough metal, one 'bubble')
   {
     list = new hittable*[5];
-    list[0] = new sphere(vec3( 0,     0,-1), 0.5, new lambertian(vec3(0.8,0.3,0.3)));
-    list[1] = new sphere(vec3( 0,-100.5,-1), 100, new lambertian(vec3(0.8,0.8,0.0)));
-    list[2] = new sphere(vec3( 1,     0,-1), 0.5, new metal(     vec3(0.8,0.6,0.2), 0.3));
-    list[3] = new sphere(vec3(-1,     0,-1), 0.5, new dielectric(1.5));
-    list[4] = new sphere(vec3(-1,     0,-1), -0.45, new dielectric(1.5));
-    world = new hittable_list(list,5);
+    int i = 0;
+    list[i] = new        sphere(vec3( 0,-100.5,-1),                      100,  new lambertian(vec3(0.8,0.8,0.0))); i++;//world
+    list[i] = new        sphere(vec3( 0,     0,-1),                      0.5,  new lambertian(vec3(0.8,0.3,0.3))); i++;//basic
+    list[i] = new moving_sphere(vec3( 1,     0,-1), vec3( 1, 1,-1), 0,1, 0.5,  new metal(     vec3(0.8,0.6,0.2), 0.3)); i++;//reflective
+    //list[i] = new        sphere(vec3(-1,     0,-1),                      0.5,  new dielectric(1.5)); i++;//bubble out
+    //list[i] = new        sphere(vec3(-1,     0,-1),                     -0.45, new dielectric(1.5)); i++;//bubble in
+    list[i] = new        sphere(vec3(-1,     0,-1),                      0.5,  new dielectric(1.5)); i++;//bubble out
+    world = new hittable_list(list,i);
 
     vec3 lookfrom(3,3,2);
     vec3 lookat(0,0,-1);
     precision dist_to_focus = (lookfrom-lookat).length();
     precision aperture = 0;
 
-    cam = camera(lookfrom,lookat,vec3(0,1,0),20,(precision)img.w/img.h, aperture, dist_to_focus);
+    cam = camera(lookfrom,lookat,vec3(0,1,0),20,(precision)img.w/img.h, aperture, dist_to_focus, 0, 1);
   }
   //*/
 
-  //*
+  /*
   //Final image in "Ray Tracing in One Weekend"
   {
     int n = 500;
