@@ -39,3 +39,10 @@ bool sphere::hit(const ray3& r, precision t_min, precision t_max, hit_record& re
   }
   return false;
 }
+
+bool sphere::bounding_box(precision t0, precision t1, aabb& box) const
+{
+  box = aabb(center-vec3(radius,radius,radius),center+vec3(radius,radius,radius));
+  return true;
+}
+

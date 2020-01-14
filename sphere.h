@@ -12,6 +12,7 @@ public:
   sphere() {}
   sphere(vec3 c, precision r, material *m) : center(c), radius(r), mat_ptr(m) {}
   virtual bool hit(const ray3& r, precision t_min, precision t_max, hit_record& rec) const;
+  virtual bool bounding_box(precision t0, precision t1, aabb& box) const;
   vec3 center;
   precision radius;
   material *mat_ptr;

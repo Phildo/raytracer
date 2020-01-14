@@ -45,3 +45,11 @@ vec3 moving_sphere::center(precision time) const
   return center0+((time-time0)/(time1-time0))*(center1-center0);
 }
 
+bool moving_sphere::bounding_box(precision t0, precision t1, aabb& box) const
+{
+  aabb box0 = aabb(center(t0)-vec3(radius,radius,radius),center(t0)+vec3(radius,radius,radius));
+  aabb box1 = aabb(center(t1)-vec3(radius,radius,radius),center(t1)+vec3(radius,radius,radius));
+  box = surrounding_box(box0,box1);
+  return true;
+}
+
