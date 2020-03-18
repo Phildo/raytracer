@@ -7,8 +7,8 @@
 
 int main(int argv, char **argc)
 {
-  int w = 2048;
-  int h = 1024;
+  int w = 200;// 2048;
+  int h = 100;// 1024;
   int aa = 100;
   int bounce = 10;
 
@@ -35,4 +35,6 @@ int main(int argv, char **argc)
   canvas_to_ppm(cimg,pimg);
   print_ppm(pimg);
 }
+
+
 

@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "file.h"
 
 void alloc_px_canvas(canvas *img) { img->px = (vec3 *)malloc(sizeof(vec3)*img->w*img->h); }
 void alloc_px_ppm(ppm *img) { img->px = (unsigned char *)malloc(sizeof(unsigned char)*3*img->w*img->h); }
@@ -34,18 +35,21 @@ void canvas_to_ppm(canvas cimg, ppm pimg)
 
 void print_ppm(ppm img)
 {
-  printf("P3\n%d %d\n255\n",img.w,img.h);
+  char *buff = (char *)malloc(sizeof(char)*img.w*img.h*4*3+16);
+  int l = 0;
+  l = sprintf(buff+l,"P3\n%d %d\n255\n",img.w,img.h);
   int i = 0;
   for(int y = 0; y < img.h; y++)
   {
     for(int x = 0; x < img.w; x++)
     {
-      printf("%d %d %d ",img.px[i+0],img.px[i+1],img.px[i+2]);
-      printf("\n");
+      l = sprintf(buff,"%d %d %d ",img.px[i+0],img.px[i+1],img.px[i+2]);
+      l = sprintf(buff,"\n");
       i += 3;
     }
-    printf("\n");
+    l = sprintf(buff,"\n");
   }
+  write_file("test.ppm",buff,l);
 
 }
 

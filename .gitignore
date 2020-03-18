@@ -3,3 +3,6 @@ a.exe
 *.obj
 *.o
 makefile
+x64
+Debug
+.vs
